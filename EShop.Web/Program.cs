@@ -1,3 +1,5 @@
+using EShop.Core.Services;
+using EShop.Core.Services.Interfaces;
 using EShop.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +15,12 @@ builder.Services.AddDbContext<EShopDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("EShopDbConnection"));
 });
+
+#endregion
+
+#region IOC
+
+builder.Services.AddTransient<IUserService, UserService>();
 
 #endregion
 
