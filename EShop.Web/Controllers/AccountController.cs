@@ -1,5 +1,7 @@
 ﻿using EShop.Core.Convertors;
 using EShop.Core.DTOs.User;
+using EShop.Core.Generator;
+using EShop.Core.Security;
 using EShop.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,7 +33,20 @@ namespace EShop.Web.Controllers
                 return View(model);
             }
 
-            return View();
+            var user = new User()
+            {
+                UserName = model.UserName,
+                Email =FixedEmail.FixEmail(model.Email) ,
+                Password =PasswordHelper.EncodePasswordMd5(model.Password) ,
+                IsActive = false,
+                RegisterDate = DateTime.Now,
+                ActiveCode = CodeGenerator.GenerateUniqCode(),
+                Avatar = "default.png"
+
+            };
+             await service.AddUser(user);
+
+            return View("SuccessRegister",user);
         }
     }
 }

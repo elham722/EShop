@@ -15,7 +15,6 @@ namespace EShop.Data.Entities
         [StringLength(11, MinimumLength = 11)]
         public string? PhoneNumber { get; set; }
 
-        [MaxLength(30)]
         public string Password { get; set; }
         public string? Avatar { get; set; }
         public DateTime RegisterDate { get; set; }
